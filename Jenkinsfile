@@ -35,7 +35,7 @@ pipeline {
             }
         }
         
-     stage('Update K8S manifest & push to Repo') {
+   stage('Update K8S manifest & push to Repo') {
     environment {
         GIT_REPO_NAME = "ToDoApp"
         GIT_USER_NAME = "abhaykohli"
@@ -43,8 +43,9 @@ pipeline {
     steps {
         script {
             withCredentials([string(credentialsId: 'GITHUB', variable: 'github-pat')]) {
-                gitConfigUser()
                 sh '''
+                    git config --global user.name "${GIT_USER_NAME}"
+                    git config --global user.email "abhaykohli01@gmail.com"
                     cd deploy
                     cat deploy.yaml
                     sed -i "s/ReplaceImageTag/${BUILD_NUMBER}/g" deploy.yaml
@@ -59,12 +60,6 @@ pipeline {
     }
 }
 
-def gitConfigUser() {
-    sh '''
-        git config user.name "abhaykohli"
-        git config user.email "abhaykohli01@gmail.com"
-    '''
-}
 
 
         }
