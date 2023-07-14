@@ -42,7 +42,7 @@ pipeline {
     }
     steps {
         script {
-            withCredentials([string(credentialsId: 'GITHUB', variable: 'github-pat')]) {
+            withCredentials([string(credentialsId: 'GITHUB', variable: 'githubtoken')]) {
                 sh '''
                     git config --global user.name "${GIT_USER_NAME}"
                     git config --global user.email "abhaykohli01@gmail.com"
@@ -53,7 +53,7 @@ pipeline {
                     git add deploy.yaml
                     git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                     git remote -v
-					git push "https://${github-pat}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME}.git" HEAD:main
+		    git push https://${githubtoken}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
 
 
                 '''
