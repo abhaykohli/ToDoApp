@@ -36,10 +36,16 @@ pipeline {
         }
         
         stage('Update K8S manifest & push to Repo') {
+			environment{
+					GIT_REPO_NAME="ToDoApp"
+					GIT_USER_NAME="abhaykohli"
+			}
             steps {
                 script {
-                    withCredentials([gitUsernamePassword(credentialsId: 'GIT_USERNAME', gitToolName: 'Default')]) {
+                    withCredentials([string(credentialsId: 'GITHUB', variable: 'github-pat')])  {
                         sh '''
+							git config user.email "abhaykohli01@gmail.com"
+							git config user.name "abhaykohli"
                             cd deploy
                             cat deploy.yaml
                             sed -i "s/ReplaceImageTag/${BUILD_NUMBER}/g" deploy.yaml
@@ -47,7 +53,7 @@ pipeline {
                             git add deploy.yaml
                             git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                             git remote -v
-                            git push https://github.com/abhaykohli/ToDoApp.git HEAD:main
+                            git push https://${github-pat}@github.com/${GIT_USER_NAME}${GIT_REPO_NAME} HEAD:main
                         '''
                     }
                 }
