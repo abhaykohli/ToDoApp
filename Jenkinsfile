@@ -13,30 +13,22 @@ pipeline {
               git branch: 'main', url: 'https://github.com/abhaykohli/ToDoApp.git'
            }
         }
-
-        stage('Build Docker Image'){
-            steps{
-                script{
-                    sh '''
-                    echo 'Buid Docker Image'
-                    docker build -t abhaykohli/devops_practice:${BUILD_NUMBER} .
-                    '''
-                }
-            }
-        }
-
-		stage('Push the artifacts') {
-				steps {
-					withDockerRegistry(credentialsId: 'docker-creds', url: 'https://index.docker.io/v1/') {
+		
+		stage('Build and Push Docker Image') {
+					environment {
+						DOCKER_IMAGE = "abhaykohli/devops_practice:${BUILD_NUMBER}"
+						REGISTRY_CREDENTIALS = credentials('docker-cred')
+						}
+			steps {
 					script {
-					sh '''
-					echo 'Push to Repo'
-					docker push abhaykohli/devops_practice:${BUILD_NUMBER}
-                '''
-            }
+							docker build -t abhaykohli/devops_practice:${BUILD_NUMBER} .
+							def dockerImage = docker.image("${DOCKER_IMAGE}")
+							docker.withRegistry('https://index.docker.io/v1/', "docker-cred") {
+							dockerImage.push()
+           }
         }
+      }
     }
-}
 
 
         
