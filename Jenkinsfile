@@ -15,7 +15,7 @@ pipeline {
         stage('Build and Push Docker Image') {
             environment {
                 DOCKER_IMAGE = "abhaykohli/devops_practice:${BUILD_NUMBER}"
-                REGISTRY_CREDENTIALS = credentials('docker-cred')
+                REGISTRY_CREDENTIALS = credentials('docker-creds')
             }
             steps {
                 script {
