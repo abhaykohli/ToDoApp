@@ -48,12 +48,12 @@ pipeline {
                     git config --global user.email "abhaykohli01@gmail.com"
                     cd deploy
                     cat deploy.yaml
-					sed -i "s/ReplaceImageTag/${BUILD_NUMBER}/g" deploy.yaml
+		    sed -i "s/ReplaceImageTag/${BUILD_NUMBER}/g" deploy.yaml
                     cat deploy.yaml
                     git add deploy.yaml
                     git commit -m 'Updated the deploy yaml | Jenkins Pipeline'
                     git remote -v
-					git push https://${githubtoken}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+		    git push https://${githubtoken}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
 
 
                 '''
