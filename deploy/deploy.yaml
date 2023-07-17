@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: todo
-        image: abhaykohli/devops_practice:31
+        image: abhaykohli/devops_practice:ReplaceImageTag
         ports:
         - containerPort: 8000
