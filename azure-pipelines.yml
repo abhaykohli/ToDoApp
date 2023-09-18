@@ -1,0 +1,21 @@
+trigger:
+- main
+
+pool:
+ vmimage: ubuntu:latest
+
+stages:
+  - stage: CI
+    jobs:
+    - job: BUILD
+      steps:
+      - script: echo "This is is build"
+    - job: TEST
+      steps:
+      - script: echo "This is TEST"
+
+  - stage: Docker push
+    jobs:
+    - job: Docker push
+      steps:
+      - script: echo "Push docker image"    
