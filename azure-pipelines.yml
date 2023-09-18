@@ -7,15 +7,15 @@ pool:
 stages:
   - stage: ci
     jobs:
-    - job: BUILD
+    - job: build
       steps:
       - script: echo "This is is build"
-    - job: TEST
+    - job: test
       steps:
       - script: echo "This is TEST"
 
-  - stage: docker_push
+  - stage: dockerpush
     jobs:
-    - job: Docker push
+    - job: docker push
       steps:
       - script: echo "Push docker image"    
