@@ -5,7 +5,7 @@ pool:
  vmimage: ubuntu:latest
 
 stages:
-  - stage: CI
+  - stage: ci
     jobs:
     - job: BUILD
       steps:
@@ -14,7 +14,7 @@ stages:
       steps:
       - script: echo "This is TEST"
 
-  - stage: Docker push
+  - stage: docker_push
     jobs:
     - job: Docker push
       steps:
