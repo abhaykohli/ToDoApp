@@ -16,6 +16,6 @@ stages:
 
   - stage: dockerpush
     jobs:
-    - job: docker push
+    - job: docker_push
       steps:
       - script: echo "Push docker image"    
